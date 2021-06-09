@@ -5,6 +5,8 @@ import com.nikolas.leaflet.repository.CentroVacunacionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 
 @Component
 public class CentroVacunacionServiceImpl implements CentroVacunacionService{
@@ -15,5 +17,10 @@ public class CentroVacunacionServiceImpl implements CentroVacunacionService{
     public CentroVacunacion centroVacunacionGetOne(Integer id) {
 
         return centroVacunacionRepository.findOne(id);
+    }
+
+    @Override
+    public List<CentroVacunacion> centroVacunacionGetAll() {
+        return centroVacunacionRepository.findAll();
     }
 }

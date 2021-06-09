@@ -47,8 +47,12 @@ public class LeafletMapController {
 
 		final LeafletMap  leafletMap = this.leafletMapService.leafletMap(2);
 		myModel.put("map", leafletMap);
+		ModelAndView mav = new ModelAndView();
+		List<CentroVacunacion> cvList = this.centroVacunacionService.centroVacunacionGetAll();
+		mav.addObject("centros",cvList);
+		mav.addObject("model",myModel);
+		return mav;
 
-		return new ModelAndView("map/index", "model", myModel);
 	}
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ResponseBody
@@ -59,8 +63,9 @@ public class LeafletMapController {
     }
 	@RequestMapping("/personas")
 	public ModelAndView ingresarCategoria() {
-		CentroVacunacion cv = this.centroVacunacionService.centroVacunacionGetOne(1);
+
 		ModelAndView mav = new ModelAndView();
+		CentroVacunacion cv = this.centroVacunacionService.centroVacunacionGetOne(1);
 		mav.addObject("centros",cv);
 		mav.setViewName("/map/vpersonasvacunadas");
 		return mav;

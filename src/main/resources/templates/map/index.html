@@ -61,6 +61,22 @@
 		<div id="tableid">
 			<h2>Tabla de centros de vacunaicon</h2>
 		</div>
+		<div class="signup-form">
+			<table class="table">
+				<thead class="thead-dark">
+				<th>Titulo</th>
+				<th>Autor</th>
+				</thead>
+				<tbody>
+				<th:block th:each="centro, row:${centros}">
+					<tr th:each="v : ${centro}">
+						<td th:text="${v.NombreCentro}"></td>
+						<td th:text="${v.direccionCentro}"></td>
+					</tr>
+				</th:block>
+				</tbody>
+			</table>
+		</div>
 	</div>
 
 	<a href="/index" th:href="@{/index}">Back to home page</a>
