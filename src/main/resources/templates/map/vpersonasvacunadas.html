@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <body>
 
 <h1>The template Element</h1>
@@ -7,6 +7,23 @@
 <p>Click the button below to display the hidden content from the template element.</p>
 
 <button>Show hidden content</button>
+
+<div class="signup-form">
+    <table class="table">
+        <thead class="thead-dark">
+        <th>Titulo</th>
+        <th>Autor</th>
+        </thead>
+        <tbody>
+        <th:block th:each="centro, row:${centros}">
+            <tr th:each="v : ${centro}">
+                <td th:text="${v.NombreCentro}"></td>
+                <td th:text="${v.direccionCentro}"></td>
+            </tr>
+        </th:block>
+        </tbody>
+    </table>
+</div>
 
 
 </body>

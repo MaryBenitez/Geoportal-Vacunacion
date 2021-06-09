@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import com.nikolas.leaflet.domain.CentroVacunacion;
+import com.nikolas.leaflet.service.CentroVacunacionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,7 +34,10 @@ import com.nikolas.leaflet.util.GenericResponse;
 public class LeafletMapController {
 	protected final Logger logger = LoggerFactory.getLogger(getClass());
 	@Autowired
-	LeafletMapService leafletMapService; 
+	LeafletMapService leafletMapService;
+
+	@Autowired
+	CentroVacunacionService centroVacunacionService;
 	
 	@RequestMapping(value = "/index")
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response)
@@ -54,7 +59,9 @@ public class LeafletMapController {
     }
 	@RequestMapping("/personas")
 	public ModelAndView ingresarCategoria() {
+		CentroVacunacion cv = this.centroVacunacionService.centroVacunacionGetOne(1);
 		ModelAndView mav = new ModelAndView();
+		mav.addObject("centros",cv);
 		mav.setViewName("/map/vpersonasvacunadas");
 		return mav;
 	}
