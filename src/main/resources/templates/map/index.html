@@ -87,16 +87,16 @@
 /*<![CDATA[*/
 var serverContext = [[@{/}]];
 var model_map = [[${model.map}]];
-var mymap = L.map('mapid').setView([ model_map.centerY,model_map.centerX], model_map.zoom);
+var centrosVacunacion = [[${centros}]];
+var mymap = L.map('mapid').setView([13.693399179677684,-89.21802884256014], 13);
 new L.tileLayer(
 		'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 			maxZoom : 19
 		}).addTo(mymap);
 mymap.on('zoomend', updateLeafletMap,mymap);
 mymap.on('moveend', updateLeafletMap, mymap);
-var listOfMarkers = [{x:50.5,y:30.5, nombre:"CIFCO"},{x:13.6615370942580,y:-89.18249909335836,nombre:"UCA"}];
 
-listOfMarkers.forEach(element => L.marker([element.x,element.y]).addTo(mymap).bindPopup(`<h2>${element.nombre}</h2>`) );
+centrosVacunacion.forEach(element => L.marker([element.coorX,element.coorY]).addTo(mymap).bindPopup(`<h2>${element.nombreCentro}</h2>`) );
 
 function updateLeafletMap(ev){
 	var map = this;

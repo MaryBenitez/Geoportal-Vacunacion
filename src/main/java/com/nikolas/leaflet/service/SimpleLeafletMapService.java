@@ -19,6 +19,7 @@ public class SimpleLeafletMapService implements LeafletMapService {
 	}
 
 
+
 	@Override
 	public LeafletMap updateLeafletMap(LeafletMap leafletMap) {
 		leafletMap = leafletMapRepository.saveAndFlush(leafletMap);
