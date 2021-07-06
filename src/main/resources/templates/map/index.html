@@ -64,14 +64,18 @@
 		<div class="signup-form">
 			<table class="table">
 				<thead class="thead-dark">
-				<th>Titulo</th>
-				<th>Autor</th>
+				<th>#</th>
+				<th>Nombre</th>
+				<th>Direccion</th>
+				<th>Municipio</th>
 				</thead>
 				<tbody>
 				<th:block th:each="centro, row:${centros}">
 					<tr th:each="v : ${centro}">
+						<td th:text="${v.id}"></td>
 						<td th:text="${v.NombreCentro}"></td>
 						<td th:text="${v.direccionCentro}"></td>
+						<td th:text="${v.municipioCentro}"></td>
 					</tr>
 				</th:block>
 				</tbody>
@@ -96,7 +100,7 @@ new L.tileLayer(
 mymap.on('zoomend', updateLeafletMap,mymap);
 mymap.on('moveend', updateLeafletMap, mymap);
 
-centrosVacunacion.forEach(element => L.marker([element.coorX,element.coorY]).addTo(mymap).bindPopup(`<h2>${element.nombreCentro}</h2>`) );
+centrosVacunacion.forEach(element => L.marker([element.coorX,element.coorY]).addTo(mymap).bindPopup(`<h5>${element.nombreCentro}</h5>`) );
 
 function updateLeafletMap(ev){
 	var map = this;

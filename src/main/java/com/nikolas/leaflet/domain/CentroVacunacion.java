@@ -27,6 +27,9 @@ public class CentroVacunacion implements Serializable {
     @Column(name = "direccion")
     private String direccionCentro;
 
+    @Column(name="municipio")
+    private String municipioCentro;
+
     public static long getSerialVersionUID() {
         return serialVersionUID;
     }
@@ -69,5 +72,13 @@ public class CentroVacunacion implements Serializable {
 
     public void setDireccionCentro(String direccionCentro) {
         this.direccionCentro = direccionCentro;
+    }
+
+    public String getMunicipioCentro() {
+        return municipioCentro;
+    }
+
+    public void setMunicipioCentro(String municipioCentro) {
+        this.municipioCentro = municipioCentro;
     }
 }
