@@ -12,13 +12,18 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import com.nikolas.leaflet.domain.CentroVacunacion;
+import com.nikolas.leaflet.domain.PersonaVacunada;
 import com.nikolas.leaflet.service.CentroVacunacionService;
+import com.nikolas.leaflet.service.PersonaVacunadaService;
+import com.sun.xml.internal.ws.policy.sourcemodel.ModelNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.slf4j.Marker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -38,6 +43,9 @@ public class LeafletMapController {
 
 	@Autowired
 	CentroVacunacionService centroVacunacionService;
+
+	@Autowired
+	PersonaVacunadaService personaVacunadaService;
 	
 	@RequestMapping(value = "/index")
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response)
@@ -62,12 +70,32 @@ public class LeafletMapController {
         return new GenericResponse("success");
     }
 	@RequestMapping("/personas")
-	public ModelAndView ingresarCategoria() {
+	public ModelAndView persona() {
 
+		Map<String, Object> myModel = new HashMap<String, Object>();
+
+		final LeafletMap  leafletMap = this.leafletMapService.leafletMap(2);
+		myModel.put("map", leafletMap);
 		ModelAndView mav = new ModelAndView();
-		CentroVacunacion cv = this.centroVacunacionService.centroVacunacionGetOne(1);
-		mav.addObject("centros",cv);
+		List<CentroVacunacion> cvList = this.centroVacunacionService.centroVacunacionGetAll();
+		List<PersonaVacunada> pvList = this.personaVacunadaService.personaVacunadaGetAll();
+		mav.addObject("centros",cvList);
+		mav.addObject("personas",pvList);
+		mav.addObject("model",myModel);
 		mav.setViewName("/map/vpersonasvacunadas");
+		return mav;
+	}
+
+	@RequestMapping("/ipersonas")
+	public ModelAndView ingresarPersona(@Valid @ModelAttribute PersonaVacunada personaVacunada, BindingResult result){
+		ModelAndView mav = new ModelAndView();
+		if(result.hasErrors()) {
+			mav.setViewName("/map/vpersonasvacunadas");
+		}else {
+			this.personaVacunadaService.insert(personaVacunada);
+			mav.addObject("exito","Libro guardado con exito");
+			mav.setViewName("/map/vpersonasvacunadas");
+		}
 		return mav;
 	}
 
