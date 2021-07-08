@@ -83,32 +83,37 @@ public class LeafletMapController {
 		mav.addObject("personas",pvList);
 		mav.addObject("model",myModel);
 		mav.setViewName("/map/vpersonasvacunadas");
-
-		PersonaVacunada personaVacunada = new PersonaVacunada();
-		mav.addObject("personaVacunada",personaVacunada);
 		return mav;
 	}
 
 	@RequestMapping("/ipersonas")
-	public ModelAndView personaVacunada(@Valid @ModelAttribute PersonaVacunada personaVacunada, BindingResult result){
+	public ModelAndView personaVacunada(){
 		ModelAndView mav = new ModelAndView();
-		if(result.hasErrors()) {
-			mav.setViewName("/map/vpersonasvacunadas");
-		}else {
-			//this.personaVacunadaService.insert(personaVacunada);
-			mav.addObject("exito","Libro guardado con exito");
-			mav.setViewName("/map/vpersonasvacunadas");
-		}
-		Map<String, Object> myModel = new HashMap<String, Object>();
-
-		final LeafletMap  leafletMap = this.leafletMapService.leafletMap(2);
-		myModel.put("map", leafletMap);
-		List<PersonaVacunada> pvList = this.personaVacunadaService.personaVacunadaGetAll();
-		mav.addObject("personas",pvList);
-		mav.addObject("model",myModel);
+		PersonaVacunada personaVacunada = new PersonaVacunada();
 		mav.addObject("personaVacunada",personaVacunada);
-
+		mav.setViewName("/map/ingresarPersonaVacunada");
 		return mav;
 	}
+	@RequestMapping("/inpersonas")
+	public ModelAndView inPersonaVacunada(@Valid @ModelAttribute PersonaVacunada personaVacunada, BindingResult result){
+		ModelAndView mav = new ModelAndView();
+		if(result.hasErrors()){
+			mav.setViewName("/map/ingresarPersonaVacunada");
+		}else{
+			this.personaVacunadaService.insert(personaVacunada);
+			Map<String, Object> myModel = new HashMap<String, Object>();
+
+			final LeafletMap  leafletMap = this.leafletMapService.leafletMap(2);
+			myModel.put("map", leafletMap);
+			List<CentroVacunacion> cvList = this.centroVacunacionService.centroVacunacionGetAll();
+			List<PersonaVacunada> pvList = this.personaVacunadaService.personaVacunadaGetAll();
+			mav.addObject("centros",cvList);
+			mav.addObject("personas",pvList);
+			mav.addObject("model",myModel);
+			mav.setViewName("/map/vpersonasvacunadas");
+		}
+		return mav;
+	}
+
 
 }

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"></meta>
+    <title>Title</title>
+</head>
+<body>
+<div  class="signup-form">
+  <form th:action="@{/map/inpersonas}" th:object="${personaVacunada}" method="POST">
+    <div class="form-group">
+      <label>DUI</label>
+      <input type="text" th:field="*{Dui}"></input>
+      <span th:errors="*{dui}" style="color: #FF0000"></span>
+    </div>
+
+    <div class="form-group">
+      <label>Municipio</label>
+      <input type="text" th:field="*{municipioPersona}"></input>
+      <span th:errors="*{municipioPersona}" style="color: #FF0000"></span>
+    </div>
+
+    <div class="form-group">
+      <label>Edad</label>
+      <input type="number" th:field="*{edadPersona}"></input>
+      <span th:errors="*{edadPersona}" style="color: #FF0000"></span>
+    </div>
+    <div class="form-group">
+      <input type="submit" value="Guardar" class="btn btn-success btn-lg btn-block"></input>
+    </div>
+  </form>
+</div>
+</body>
+</html>

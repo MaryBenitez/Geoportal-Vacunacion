@@ -9,7 +9,6 @@ import java.io.Serializable;
 public class PersonaVacunada implements Serializable {
     @Id
     @Column(name="id")
-    @SequenceGenerator(name = "persona_vacunada_id_seq", sequenceName = "persona_vacunada_id_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
@@ -20,7 +19,7 @@ public class PersonaVacunada implements Serializable {
     private String municipioPersona;
 
     @Column(name="edad")
-    private String edadPersona;
+    private Integer edadPersona;
 
     public Integer getId() {
         return id;
@@ -46,11 +45,11 @@ public class PersonaVacunada implements Serializable {
         this.municipioPersona = municipioPersona;
     }
 
-    public String getEdadPersona() {
+    public Integer getEdadPersona() {
         return edadPersona;
     }
 
-    public void setEdadPersona(String edadPersona) {
+    public void setEdadPersona(Integer edadPersona) {
         this.edadPersona = edadPersona;
     }
 
