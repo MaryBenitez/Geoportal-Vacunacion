@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-public interface PersonaVacunadaRepository extends JpaRepository<PersonaVacunada,Integer> {
+public interface PersonaVacunadaR {
 
     PersonaVacunada findOne(Integer id);
     List<PersonaVacunada> findAll();

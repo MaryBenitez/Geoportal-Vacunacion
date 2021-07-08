@@ -81,27 +81,27 @@
             </tbody>
         </table>
     </div>
-    <div>
+    <div  class="signup-form">
         <form th:action="@{/ipersonas}" th:object="${personaVacunada}" method="POST">
             <div class="form-group">
                 <label>DUI</label>
-                <input type="text" th:field="*{dui}"><br>
-                <span th:errors="*{dui}" style="color: #FF0000"></span><br>
+                <input type="text" th:field="*{Dui}"></input>
+                <span th:errors="*{dui}" style="color: #FF0000"></span>
             </div>
 
             <div class="form-group">
                 <label>Municipio</label>
-                <input type="text" th:field="*{municipioPersona}"><br>
-                <span th:errors="*{municipioPersona}" style="color: #FF0000"></span><br>
+                <input type="text" th:field="*{municipioPersona}"></input>
+                <span th:errors="*{municipioPersona}" style="color: #FF0000"></span>
             </div>
 
             <div class="form-group">
                 <label>Edad</label>
-                <input type="number" th:field="*{edadPersona}"><br>
-                <span th:errors="*{edadPersona}" style="color: #FF0000"></span><br>
+                <input type="number" th:field="*{edadPersona}"></input>
+                <span th:errors="*{edadPersona}" style="color: #FF0000"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Guardar" class="btn btn-success btn-lg btn-block">
+                <input type="submit" value="Guardar" class="btn btn-success btn-lg btn-block"></input>
             </div>
         </form>
     </div>

@@ -10,7 +10,7 @@ public class PersonaVacunada implements Serializable {
     @Id
     @Column(name="id")
     @SequenceGenerator(name = "persona_vacunada_id_seq", sequenceName = "persona_vacunada_id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "persona_vacunada_id_seq")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(name="dui")

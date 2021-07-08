@@ -70,7 +70,7 @@ public class LeafletMapController {
         return new GenericResponse("success");
     }
 	@RequestMapping("/personas")
-	public ModelAndView persona() {
+	public ModelAndView ingresarPersona() {
 
 		Map<String, Object> myModel = new HashMap<String, Object>();
 
@@ -83,19 +83,31 @@ public class LeafletMapController {
 		mav.addObject("personas",pvList);
 		mav.addObject("model",myModel);
 		mav.setViewName("/map/vpersonasvacunadas");
+
+		PersonaVacunada personaVacunada = new PersonaVacunada();
+		mav.addObject("personaVacunada",personaVacunada);
 		return mav;
 	}
 
 	@RequestMapping("/ipersonas")
-	public ModelAndView ingresarPersona(@Valid @ModelAttribute PersonaVacunada personaVacunada, BindingResult result){
+	public ModelAndView personaVacunada(@Valid @ModelAttribute PersonaVacunada personaVacunada, BindingResult result){
 		ModelAndView mav = new ModelAndView();
 		if(result.hasErrors()) {
 			mav.setViewName("/map/vpersonasvacunadas");
 		}else {
-			this.personaVacunadaService.insert(personaVacunada);
+			//this.personaVacunadaService.insert(personaVacunada);
 			mav.addObject("exito","Libro guardado con exito");
 			mav.setViewName("/map/vpersonasvacunadas");
 		}
+		Map<String, Object> myModel = new HashMap<String, Object>();
+
+		final LeafletMap  leafletMap = this.leafletMapService.leafletMap(2);
+		myModel.put("map", leafletMap);
+		List<PersonaVacunada> pvList = this.personaVacunadaService.personaVacunadaGetAll();
+		mav.addObject("personas",pvList);
+		mav.addObject("model",myModel);
+		mav.addObject("personaVacunada",personaVacunada);
+
 		return mav;
 	}
 
