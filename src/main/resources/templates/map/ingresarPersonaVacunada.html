@@ -3,9 +3,59 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"></meta>
-    <title>Title</title>
+    <title>Persona Vacunada</title>
+  <style type="text/css">
+	body{
+		color: #fff;
+		background: #63738a;
+		font-family: 'Roboto', sans-serif;
+	}
+    .form-control{
+		height: 40px;
+		box-shadow: none;
+		color: #969fa4;
+	}
+	.form-control:focus{
+		border-color: #5cb85c;
+	}
+    .form-control, .btn{
+        border-radius: 3px;
+    }
+	.signup-form{
+		width: 400px;
+		margin: 0 auto;
+		padding: 30px 0;
+	}
+	.signup-form h2{
+		color: #636363;
+        margin: 0 0 15px;
+		position: relative;
+		text-align: center;
+    }
+
+    .signup-form .hint-text{
+		color: #999;
+		margin-bottom: 30px;
+		text-align: center;
+	}
+    .signup-form form{
+		color: #999;
+		border-radius: 3px;
+    	margin-bottom: 15px;
+        background: #f2f3f7;
+        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+        padding: 30px;
+    }
+	.signup-form .btn{
+        font-size: 16px;
+        font-weight: bold;
+		min-width: 140px;
+        outline: none !important;
+    }
+</style>
 </head>
 <body>
+<h1>Ingrese sus datos a continuación:</h1>
 <div  class="signup-form">
   <form th:action="@{/map/inpersonas}" th:object="${personaVacunada}" method="POST">
     <div class="form-group">
@@ -16,7 +66,13 @@
 
     <div class="form-group">
       <label>Municipio</label>
-      <input type="text" th:field="*{municipioPersona}"></input>
+      <select th:field="*{municipioPersona}">
+        <option value="San Salvador">San Salvador</option>
+        <option value="San Marcos">San Marcos</option>
+        <option value="Mejicanos">Mejicanos</option>
+        <option value="Cuscatancingo">Cuscatancingo</option>
+        <option value="Ciudad Delgado">Ciudad Delgado</option>
+      </select>
       <span th:errors="*{municipioPersona}" style="color: #FF0000"></span>
     </div>
 

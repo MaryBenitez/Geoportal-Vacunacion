@@ -44,7 +44,7 @@
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-        <a class="navbar-brand" href="#">Spring  -Leaflet</a>
+        <a class="navbar-brand" href="/map/index">Geoportal Vacunacion</a>
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
             <li class="nav-item active">
                 <a class="nav-link" th:href="@{/map/index}">Centros de Vacunacion</a>
@@ -110,7 +110,7 @@ var listOfMarkers = [{nombre:"San Salvador", x:13.692817323748745, y:-89.2167533
                        {nombre:"Cuscatancingo", x:13.756025548203818, y:-89.18472805117604},
                        {nombre:"Ciudad Delgado", x:13.734876346471145, y: -89.1670746308731}];
 
-listOfMarkers.forEach(element => L.marker([element.x,element.y]).addTo(mymap).bindPopup(`<h2>${element.nombre}</h2>`) );
+listOfMarkers.forEach(element => L.marker([element.x,element.y]).addTo(mymap).bindPopup(`<h5>${element.nombre}</h5>`) );
 
 
 function updateLeafletMap(ev){
