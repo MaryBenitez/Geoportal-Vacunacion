@@ -4,9 +4,9 @@ Aplicación web que muestra mapas donde se localizacon los centros de vacunació
 ## Tecnológicas ⚙️:
 * [IntelliJ](https://www.jetbrains.com/es-es/idea/) - Framework web usado
 * [Spring Boot](https://spring.io/projects/spring-boot) - Herramienta de uso
-* [Leaflet](https://rometools.github.io/rome/) - Biblioteca de JavaScript para mapas interactivos compatibles con dispositivos móviles.
-* [PostgresSQL](https://www.jetbrains.com/es-es/idea/) - Base de Datos
-* [Bootstrap](https://www.jetbrains.com/es-es/idea/) - HTML, CSS y JavaScript para desarrollar proyectos móviles con capacidad de respuesta en la web.
+* [Leaflet](https://leafletjs.com/) - Biblioteca de JavaScript para mapas interactivos compatibles con dispositivos móviles.
+* [PostgresSQL](https://www.postgresql.org/) - Base de Datos
+* [Bootstrap](https://getbootstrap.com/) - HTML, CSS y JavaScript para desarrollar proyectos móviles con capacidad de respuesta en la web.
 
 ## Colaboradores 🛠️:
 <a href="https://github.com/luedco/"><img src="https://avatars.githubusercontent.com/u/38091075?v=4" width="100px" height="100px" style="max-width:100%;"></a>
