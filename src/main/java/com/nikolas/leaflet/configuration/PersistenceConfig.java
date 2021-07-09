@@ -71,7 +71,7 @@ public class PersistenceConfig {
         dataSource.setDriverClassName("org.postgresql.Driver");
         dataSource.setUrl("jdbc:postgresql://127.0.0.1:5432/pruebaspring");
         dataSource.setUsername("postgres");
-        dataSource.setPassword("admin");
+        dataSource.setPassword("root");
         return dataSource;
     }
 }
