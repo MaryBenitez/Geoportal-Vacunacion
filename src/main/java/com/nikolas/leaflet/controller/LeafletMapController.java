@@ -42,7 +42,8 @@ public class LeafletMapController {
 
 	int contSanMarcos;
 	int contSanSalvador;
-	int contX;
+	int contCiudadDelgado;
+	int contMejicanos;
 
 	@Autowired
 	LeafletMapService leafletMapService;
@@ -94,15 +95,20 @@ public class LeafletMapController {
 			}
 			if(pvList.get(i).getMunicipioPersona().equals("San Salvador")){
 				contSanSalvador = contSanSalvador +1;
-			}else{
-				contX++;
+			}
+			if(pvList.get(i).getMunicipioPersona().equals("Ciudad Delgado")){
+				contCiudadDelgado = contCiudadDelgado +1;
+			}
+			if(pvList.get(i).getMunicipioPersona().equals("Mejicanos")){
+				contMejicanos = contMejicanos +1;
 			}
 
 		}
 		List<PersonaMunicipio> listaPersonaMunicipio = new ArrayList<>();
 		listaPersonaMunicipio.add(new PersonaMunicipio("San Marcos",contSanMarcos));
 		listaPersonaMunicipio.add(new PersonaMunicipio("San Salvador",contSanSalvador));
-		listaPersonaMunicipio.add(new PersonaMunicipio("X",contX));
+		listaPersonaMunicipio.add(new PersonaMunicipio("Ciudad Delgado",contSanSalvador));
+		listaPersonaMunicipio.add(new PersonaMunicipio("Mejicanos",contSanSalvador));
 		mav.addObject("personas",listaPersonaMunicipio);
 		//mav.addObject("personas",pvList);
 		mav.addObject("model",myModel);
@@ -137,11 +143,19 @@ public class LeafletMapController {
 				if(pvList.get(i).getMunicipioPersona().equals("San Salvador")){
 					contSanSalvador++;
 				}
+				if(pvList.get(i).getMunicipioPersona().equals("Ciudad Delgado")){
+					contCiudadDelgado = contCiudadDelgado +1;
+				}
+				if(pvList.get(i).getMunicipioPersona().equals("Mejicanos")){
+					contMejicanos = contMejicanos +1;
+				}
 
 			}
 			List<PersonaMunicipio> listaPersonaMunicipio = new ArrayList<>();
 			listaPersonaMunicipio.add(new PersonaMunicipio("San Marcos",contSanMarcos));
 			listaPersonaMunicipio.add(new PersonaMunicipio("San Salvador",contSanSalvador));
+			listaPersonaMunicipio.add(new PersonaMunicipio("Ciudad Delgado",contSanSalvador));
+			listaPersonaMunicipio.add(new PersonaMunicipio("Mejicanos",contSanSalvador));
 			mav.addObject("personas",listaPersonaMunicipio);
 			mav.addObject("model",myModel);
 			mav.setViewName("/map/vpersonasvacunadas");
