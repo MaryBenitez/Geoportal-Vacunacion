@@ -46,9 +46,9 @@
     <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
         <a class="navbar-brand" href="#">Spring  -Leaflet</a>
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-            <li class="nav-item active"><a class="nav-link" href="#">Centros de Vacunacion
-                <span class="sr-only">(current)</span>
-            </a></li>
+            <li class="nav-item active">
+                <a class="nav-link" th:href="@{/map/index}">Centros de Vacunacion</a>
+            </li>
             <li class="nav-item active">
                 <a class="nav-link" th:href="@{/map/personas}">Personas</a>
             </li>
@@ -59,23 +59,17 @@
 <div class="container-full" >
     <div id="mapid"></div>
     <div id="tableid">
-        <h2>Tabla de centros de vacunaicon</h2>
+        <h2>Personas Vacunadas</h2>
     </div>
     <div class="signup-form">
         <table class="table">
             <thead class="thead-dark">
-            <th>#</th>
-            <th>Nombre</th>
-            <th>Direccion</th>
             <th>Municipio</th>
             </thead>
             <tbody>
             <th:block th:each="centro, row:${personas}">
                 <tr th:each="v : ${centro}">
-                    <td th:text="${v.id}"></td>
-                    <td th:text="${v.Dui}"></td>
-                    <td th:text="${v.MunicipioPersona}"></td>
-                    <td th:text="${v.EdadPersona}"></td>
+                    <td th:text="${v.municipio}"></td>
                 </tr>
             </th:block>
             </tbody>
@@ -106,17 +100,15 @@ new L.tileLayer(
 mymap.on('zoomend', updateLeafletMap,mymap);
 mymap.on('moveend', updateLeafletMap, mymap);
 
-var listaMunicipios = [{nombreCentro:"San Salvador", coorX:13.692817323748745, coorY:-89.21675336657084},
-                       {nombreCentro:"San Marcos", coorX:13.656751196005517, coorY:-89.18008194025414},
-                       {nombreCentro:"Mejicanos", coorX:13.733637168778275, coorX:-89.21819076573203},
-                       {nombreCentro:"Cuscatancingo", coorX:13.756025548203818, coorY:-89.18472805117604},
-                       {nombreCentro:"Ciudad Delgado", coorX:13.734876346471145, coorY: -89.1670746308731}];
+var listOfMarkers = [{nombre:"San Salvador", x:13.692817323748745, y:-89.21675336657084},
+                       {nombre:"San Marcos", x:13.656751196005517, y:-89.18008194025414},
+                       {nombre:"Mejicanos", x:13.733637168778275, y:-89.21819076573203},
+                       {nombre:"Cuscatancingo", x:13.756025548203818, y:-89.18472805117604},
+                       {nombre:"Ciudad Delgado", x:13.734876346471145, y: -89.1670746308731}];
+
+listOfMarkers.forEach(element => L.marker([element.x,element.y]).addTo(mymap).bindPopup(`<h2>${element.nombre}</h2>`) );
 
 
-listaMunicipios.forEach(element => L.marker([element.coorX,element.coorY]).addTo(mymap).bindPopup(`<h5>${element.nombreCentro}</h5>`) );
-for (var i = 0; i < listaMunicipios.length; i++) {
-    L.marker(listaMunicipios[i].coorX,listaMunicipios[i].coorY).addTo(mymap).bindPopup(`<h5>${listaMunicipios[i].nombreCentro}</h5>`);
-}
 function updateLeafletMap(ev){
 	var map = this;
 	var form_data = new FormData();

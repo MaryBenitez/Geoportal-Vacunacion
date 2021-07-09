@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import com.nikolas.leaflet.domain.CentroVacunacion;
+import com.nikolas.leaflet.domain.PersonaMunicipio;
 import com.nikolas.leaflet.domain.PersonaVacunada;
 import com.nikolas.leaflet.service.CentroVacunacionService;
 import com.nikolas.leaflet.service.PersonaVacunadaService;
@@ -46,6 +47,7 @@ public class LeafletMapController {
 
 	@Autowired
 	PersonaVacunadaService personaVacunadaService;
+
 	
 	@RequestMapping(value = "/index")
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response)
@@ -78,7 +80,7 @@ public class LeafletMapController {
 		myModel.put("map", leafletMap);
 		ModelAndView mav = new ModelAndView();
 		List<CentroVacunacion> cvList = this.centroVacunacionService.centroVacunacionGetAll();
-		List<PersonaVacunada> pvList = this.personaVacunadaService.personaVacunadaGetAll();
+		List<PersonaVacunada> pvList = this.personaVacunadaService.personaMunicipioGetAll();
 		mav.addObject("centros",cvList);
 		mav.addObject("personas",pvList);
 		mav.addObject("model",myModel);
@@ -105,9 +107,7 @@ public class LeafletMapController {
 
 			final LeafletMap  leafletMap = this.leafletMapService.leafletMap(2);
 			myModel.put("map", leafletMap);
-			List<CentroVacunacion> cvList = this.centroVacunacionService.centroVacunacionGetAll();
-			List<PersonaVacunada> pvList = this.personaVacunadaService.personaVacunadaGetAll();
-			mav.addObject("centros",cvList);
+			List<PersonaVacunada> pvList = this.personaVacunadaService.personaMunicipioGetAll();
 			mav.addObject("personas",pvList);
 			mav.addObject("model",myModel);
 			mav.setViewName("/map/vpersonasvacunadas");
