@@ -44,6 +44,7 @@ public class LeafletMapController {
 	int contSanSalvador;
 	int contCiudadDelgado;
 	int contMejicanos;
+	int contCuscatancingo;
 
 	@Autowired
 	LeafletMapService leafletMapService;
@@ -82,6 +83,12 @@ public class LeafletMapController {
 	@RequestMapping("/personas")
 	public ModelAndView ingresarPersona() {
 
+		contSanMarcos=0;
+		contSanSalvador=0;
+		contCiudadDelgado=0;
+		contMejicanos=0;
+		contCuscatancingo=0;
+
 		Map<String, Object> myModel = new HashMap<String, Object>();
 
 		final LeafletMap  leafletMap = this.leafletMapService.leafletMap(2);
@@ -102,13 +109,18 @@ public class LeafletMapController {
 			if(pvList.get(i).getMunicipioPersona().equals("Mejicanos")){
 				contMejicanos = contMejicanos +1;
 			}
+			if(pvList.get(i).getMunicipioPersona().equals("Cuscatancingo")){
+				contCuscatancingo = contCuscatancingo +1;
+			}
+
 
 		}
 		List<PersonaMunicipio> listaPersonaMunicipio = new ArrayList<>();
 		listaPersonaMunicipio.add(new PersonaMunicipio("San Marcos",contSanMarcos));
 		listaPersonaMunicipio.add(new PersonaMunicipio("San Salvador",contSanSalvador));
-		listaPersonaMunicipio.add(new PersonaMunicipio("Ciudad Delgado",contSanSalvador));
-		listaPersonaMunicipio.add(new PersonaMunicipio("Mejicanos",contSanSalvador));
+		listaPersonaMunicipio.add(new PersonaMunicipio("Ciudad Delgado",contCiudadDelgado));
+		listaPersonaMunicipio.add(new PersonaMunicipio("Mejicanos",contMejicanos));
+		listaPersonaMunicipio.add(new PersonaMunicipio("Cuscatancingo",contCuscatancingo));
 		mav.addObject("personas",listaPersonaMunicipio);
 		//mav.addObject("personas",pvList);
 		mav.addObject("model",myModel);
@@ -127,6 +139,11 @@ public class LeafletMapController {
 	@RequestMapping("/inpersonas")
 	public ModelAndView inPersonaVacunada(@Valid @ModelAttribute PersonaVacunada personaVacunada, BindingResult result){
 		ModelAndView mav = new ModelAndView();
+		contSanMarcos=0;
+		contSanSalvador=0;
+		contCiudadDelgado=0;
+		contMejicanos=0;
+		contCuscatancingo=0;
 		if(result.hasErrors()){
 			mav.setViewName("/map/ingresarPersonaVacunada");
 		}else{
@@ -149,13 +166,17 @@ public class LeafletMapController {
 				if(pvList.get(i).getMunicipioPersona().equals("Mejicanos")){
 					contMejicanos = contMejicanos +1;
 				}
+				if(pvList.get(i).getMunicipioPersona().equals("Cuscatancingo")){
+					contCuscatancingo = contCuscatancingo +1;
+				}
 
 			}
 			List<PersonaMunicipio> listaPersonaMunicipio = new ArrayList<>();
 			listaPersonaMunicipio.add(new PersonaMunicipio("San Marcos",contSanMarcos));
 			listaPersonaMunicipio.add(new PersonaMunicipio("San Salvador",contSanSalvador));
-			listaPersonaMunicipio.add(new PersonaMunicipio("Ciudad Delgado",contSanSalvador));
-			listaPersonaMunicipio.add(new PersonaMunicipio("Mejicanos",contSanSalvador));
+			listaPersonaMunicipio.add(new PersonaMunicipio("Ciudad Delgado",contCiudadDelgado));
+			listaPersonaMunicipio.add(new PersonaMunicipio("Mejicanos",contMejicanos));
+			listaPersonaMunicipio.add(new PersonaMunicipio("Cuscatancingo",contCuscatancingo));
 			mav.addObject("personas",listaPersonaMunicipio);
 			mav.addObject("model",myModel);
 			mav.setViewName("/map/vpersonasvacunadas");
