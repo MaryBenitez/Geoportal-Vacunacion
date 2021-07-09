@@ -37,14 +37,7 @@ public class PersonaVacunadaServiceImpl  implements PersonaVacunadaService {
         entityManager.persist(personaVacunada);
     }
 
-    @Override
-    public List<PersonaVacunada> personaMunicipioGetAll() {
-        StringBuffer sb = new StringBuffer();
-        sb.append("SELECT * FROM public.persona_vacunada as pv");
-        Query query = entityManager.createNativeQuery(sb.toString(),PersonaVacunada.class);
-        List<PersonaVacunada> resulset = query.getResultList();
-        return resulset;
-    }
+
 
 
 

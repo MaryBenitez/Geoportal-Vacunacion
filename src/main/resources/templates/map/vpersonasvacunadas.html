@@ -65,11 +65,13 @@
         <table class="table">
             <thead class="thead-dark">
             <th>Municipio</th>
+            <th>Cantidad Personas Vacunadas</th>
             </thead>
             <tbody>
             <th:block th:each="centro, row:${personas}">
                 <tr th:each="v : ${centro}">
                     <td th:text="${v.municipio}"></td>
+                    <td th:text="${v.conteo}"></td>
                 </tr>
             </th:block>
             </tbody>

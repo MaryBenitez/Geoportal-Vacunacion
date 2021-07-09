@@ -11,5 +11,4 @@ public interface PersonaVacunadaService extends Serializable {
 
     List<PersonaVacunada> personaVacunadaGetAll();
     void insert(PersonaVacunada personaVacunada) throws DataAccessException;
-    List<PersonaVacunada> personaMunicipioGetAll();
 }
