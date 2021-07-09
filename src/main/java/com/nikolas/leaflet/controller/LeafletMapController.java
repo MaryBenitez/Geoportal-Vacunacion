@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import com.nikolas.leaflet.domain.CentroVacunacion;
+import com.nikolas.leaflet.domain.PersonaMunicipio;
 import com.nikolas.leaflet.domain.PersonaVacunada;
 import com.nikolas.leaflet.service.CentroVacunacionService;
 import com.nikolas.leaflet.service.PersonaVacunadaService;
@@ -38,6 +39,11 @@ import com.nikolas.leaflet.util.GenericResponse;
 @RequestMapping("/map")
 public class LeafletMapController {
 	protected final Logger logger = LoggerFactory.getLogger(getClass());
+
+	int contSanMarcos;
+	int contSanSalvador;
+	int contX;
+
 	@Autowired
 	LeafletMapService leafletMapService;
 
@@ -46,6 +52,7 @@ public class LeafletMapController {
 
 	@Autowired
 	PersonaVacunadaService personaVacunadaService;
+
 	
 	@RequestMapping(value = "/index")
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response)
@@ -69,6 +76,8 @@ public class LeafletMapController {
     	leafletMapService.updateLeafletMap(leafletMap);
         return new GenericResponse("success");
     }
+
+
 	@RequestMapping("/personas")
 	public ModelAndView ingresarPersona() {
 
@@ -77,10 +86,25 @@ public class LeafletMapController {
 		final LeafletMap  leafletMap = this.leafletMapService.leafletMap(2);
 		myModel.put("map", leafletMap);
 		ModelAndView mav = new ModelAndView();
-		List<CentroVacunacion> cvList = this.centroVacunacionService.centroVacunacionGetAll();
 		List<PersonaVacunada> pvList = this.personaVacunadaService.personaVacunadaGetAll();
-		mav.addObject("centros",cvList);
-		mav.addObject("personas",pvList);
+
+		for (int i=0; i<pvList.size(); i++){
+			if(pvList.get(i).getMunicipioPersona().equals("San Marcos")){
+				contSanMarcos= contSanMarcos +1;
+			}
+			if(pvList.get(i).getMunicipioPersona().equals("San Salvador")){
+				contSanSalvador = contSanSalvador +1;
+			}else{
+				contX++;
+			}
+
+		}
+		List<PersonaMunicipio> listaPersonaMunicipio = new ArrayList<>();
+		listaPersonaMunicipio.add(new PersonaMunicipio("San Marcos",contSanMarcos));
+		listaPersonaMunicipio.add(new PersonaMunicipio("San Salvador",contSanSalvador));
+		listaPersonaMunicipio.add(new PersonaMunicipio("X",contX));
+		mav.addObject("personas",listaPersonaMunicipio);
+		//mav.addObject("personas",pvList);
 		mav.addObject("model",myModel);
 		mav.setViewName("/map/vpersonasvacunadas");
 		return mav;
@@ -105,10 +129,20 @@ public class LeafletMapController {
 
 			final LeafletMap  leafletMap = this.leafletMapService.leafletMap(2);
 			myModel.put("map", leafletMap);
-			List<CentroVacunacion> cvList = this.centroVacunacionService.centroVacunacionGetAll();
 			List<PersonaVacunada> pvList = this.personaVacunadaService.personaVacunadaGetAll();
-			mav.addObject("centros",cvList);
-			mav.addObject("personas",pvList);
+			for (int i=0; i<pvList.size(); i++){
+				if(pvList.get(i).getMunicipioPersona().equals("San Marcos")){
+					contSanMarcos++;
+				}
+				if(pvList.get(i).getMunicipioPersona().equals("San Salvador")){
+					contSanSalvador++;
+				}
+
+			}
+			List<PersonaMunicipio> listaPersonaMunicipio = new ArrayList<>();
+			listaPersonaMunicipio.add(new PersonaMunicipio("San Marcos",contSanMarcos));
+			listaPersonaMunicipio.add(new PersonaMunicipio("San Salvador",contSanSalvador));
+			mav.addObject("personas",listaPersonaMunicipio);
 			mav.addObject("model",myModel);
 			mav.setViewName("/map/vpersonasvacunadas");
 		}

@@ -1,6 +1,7 @@
 package com.nikolas.leaflet.service;
 
 import com.nikolas.leaflet.domain.CentroVacunacion;
+import com.nikolas.leaflet.domain.PersonaMunicipio;
 import com.nikolas.leaflet.domain.PersonaVacunada;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -12,12 +13,14 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.util.List;
 
+
 @Repository
-public class PersonaVacunadaServiceImpl implements PersonaVacunadaService{
+public class PersonaVacunadaServiceImpl  implements PersonaVacunadaService {
 
 
     @PersistenceContext(unitName="persistenceUnit")
     private EntityManager entityManager;
+
 
 
     @Override
@@ -33,4 +36,9 @@ public class PersonaVacunadaServiceImpl implements PersonaVacunadaService{
     public void insert(PersonaVacunada personaVacunada) {
         entityManager.persist(personaVacunada);
     }
+
+
+
+
+
 }

@@ -1,5 +1,6 @@
 package com.nikolas.leaflet.service;
 
+import com.nikolas.leaflet.domain.PersonaMunicipio;
 import com.nikolas.leaflet.domain.PersonaVacunada;
 import org.springframework.dao.DataAccessException;
 
