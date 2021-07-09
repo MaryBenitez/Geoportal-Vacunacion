@@ -59,7 +59,7 @@ public class LeafletMapController {
 	@RequestMapping(value = "/index")
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		logger.info("Returning hello view with ");
+
 		Map<String, Object> myModel = new HashMap<String, Object>();
 
 		final LeafletMap  leafletMap = this.leafletMapService.leafletMap(2);
