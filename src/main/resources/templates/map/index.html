@@ -59,10 +59,11 @@
 	<div class="container-full" >
 		<div id="mapid"></div>
 		<div id="tableid">
-			<h2>Tabla de centros de vacunaicon</h2>
+
 		</div>
-		<div class="signup-form">
-			<table class="table">
+		<div class="signup-form container" style = "font-family:courier,arial,helvetica;">
+			<h1 class="display-6 d-flex justify-content-center"> Tabla de Vacunación</h1>
+			<table class="table table-dark table-striped">
 				<thead class="thead-dark">
 				<th>#</th>
 				<th>Nombre</th>
@@ -72,7 +73,7 @@
 				<tbody>
 				<th:block th:each="centro, row:${centros}">
 					<tr th:each="v : ${centro}">
-						<td th:text="${v.id}"></td>
+						<td th:text="${v.id}" ></td>
 						<td th:text="${v.NombreCentro}"></td>
 						<td th:text="${v.direccionCentro}"></td>
 						<td th:text="${v.municipioCentro}"></td>
