@@ -78,7 +78,10 @@
         </table>
         <div class="form-group">
             <form method="get" th:action="@{/map/ipersonas}">
-                <input type="submit" value="Ingresar Persona" class="btn btn-success d-flex justify-content-center"></input>
+                <div class="col text-center">
+                    <center><input type="submit" value="Ingresar Persona" class="btn btn-success d-flex justify-content-center"></input></center>
+                </div>
+
             </form>
         </div>
         <h2 th:text="${exito}"></h2>
