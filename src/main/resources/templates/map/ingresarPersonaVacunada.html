@@ -1,0 +1,80 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8" />
+  <title>Persona Vacunada</title>
+  <link  rel="icon"   href="images/heart_icon1.png" type="image/png" />
+  <base href="/"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css"/>
+  <link rel="stylesheet" type="text/css" href="fonts/Linearicons-Free-v1.0.0/icon-font.min.css"/>
+  <link rel="stylesheet" type="text/css" href="css/loginStyle.css"/>
+</head>
+<body>
+<div class="limiter">
+      <div class="container-login100">
+        <div class="wrap-login100">
+          <div class="login100-more" style="background-image: url('images/mapafondo.png');"></div>
+          <form class="login100-form" th:action="@{/map/inpersonas}" th:object="${personaVacunada}" method="post" >
+
+            <span class="login100-form-title p-b-34">Ingreso de Persona Vacunada</span>
+
+            <div class="wrap-input100 validate-input">
+              <select th:field="*{municipioPersona}" class="input100">
+                <option value="San Salvador">San Salvador</option>
+                <option value="San Marcos">San Marcos</option>
+                <option value="Mejicanos">Mejicanos</option>
+                <option value="Cuscatancingo">Cuscatancingo</option>
+                <option value="Ciudad Delgado">Ciudad Delgado</option>
+              </select>
+              <span class="focus-input100"></span>
+            </div>
+            <div class="container">
+              <div class="row align-items-start">
+                <div class="col"><font color="white">.</font></div>
+                <div class="col"><font color="white">.</font></div>
+                <div class="col"><font color="white">.</font></div>
+              </div>
+            </div>
+            <div class="wrap-input100 validate-input">
+              <input class="input100" type="text" th:field="*{Dui}" placeholder="Dui" />
+              <span class="focus-input100"></span>
+            </div>
+            <div class="container">
+              <div class="row align-items-start">
+                <div class="col"><font color="white">.</font></div>
+                <div class="col"><font color="white">.</font></div>
+                <div class="col"><font color="white">.</font></div>
+              </div>
+            </div>
+            <div class="wrap-input100 validate-input">
+              <input class="input100" type="number" th:field="*{edadPersona}" placeholder="Edad" />
+              <span class="focus-input100"></span>
+            </div>
+            <div class="container">
+              <div class="row align-items-start">
+                <div class="col"><font color="white">.</font></div>
+                <div class="col"><font color="white">.</font></div>
+                <div class="col"><font color="white">.</font></div>
+              </div>
+              <div class="container-login100-form-btn">
+                <button class="btn login100-form-btn btn-success">Guardar</button>
+              </div>
+              <div class="w-full text-center" style="margin-top: 10px;">
+                <a type="button" class="btn btn-outline-primary col-sm-5" th:href="@{/map/personas}"><i class="fa fa-arrow-circle-left"></i> Atras </a>
+              </div>
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </div>
+</body>
+</html>

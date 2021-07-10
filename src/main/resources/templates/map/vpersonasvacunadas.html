@@ -1,13 +1,153 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Hello Spring Security</title>
+    <meta charset="utf-8"></meta>
+
+    <link rel="stylesheet" type="text/css"
+          href="webjars/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+          th:href="@{/webjars/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css}" />
+    <link rel="stylesheet" href="/css/main.css"
+          th:href="@{/webjars/leaflet/1.0.3/leaflet.css}" />
+    <script type="text/javascript" src="/webjars/leaflet/1.0.3/leaflet.js"
+            th:src="@{/webjars/leaflet/1.0.3/leaflet.js}"></script>
+    <link rel="stylesheet" href="/css/main.css" th:href="@{/css/main.css}" />
+    <style type="text/css">
+.container-full {
+	position: absolute;
+	bottom: 0px;
+	top: 50px;
+	width: 100%;
+	overflow: auto;
+}
+
+#mapid {
+	height: 80%;
+	width: 100%;
+}
+
+.navbar {
+	z-index: 10000;
+}
+}
+</style>
+</head>
+
 <body>
 
-<h1>The template Element</h1>
+<nav class="navbar navbar-toggleable-md navbar-light bg-faded">
+    <button class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarTogglerDemo01"
+            aria-controls="navbarTogglerDemo01" aria-expanded="false"
+            aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+        <a class="navbar-brand" href="/map/index">Geoportal Vacunacion</a>
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item active">
+                <a class="nav-link" th:href="@{/map/index}">Centros de Vacunacion</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" th:href="@{/map/personas}">Personas</a>
+            </li>
+        </ul>
+        <div th:substituteby="index::logout"></div>
+    </div>
+</nav>
+<div class="container-full" >
+    <div id="mapid"></div>
+    <div id="tableid">
+    </div>
+    <div class="signup-form container" style = "font-family:courier,arial,helvetica;">
+        <h1 class="display-6 d-flex justify-content-center"> Personas vacunadas</h1>
+        <table class="table table-dark table-striped">
+            <thead class="thead-dark">
+            <th>Municipio</th>
+            <th>Cantidad Personas Vacunadas</th>
+            </thead>
+            <tbody>
+            <th:block th:each="centro, row:${personas}">
+                <tr th:each="v : ${centro}">
+                    <td th:text="${v.municipio}"></td>
+                    <td th:text="${v.conteo}"></td>
+                </tr>
+            </th:block>
+            </tbody>
+        </table>
+        <div class="form-group">
+            <form method="get" th:action="@{/map/ipersonas}">
+                <div class="col text-center">
+                    <center><input type="submit" value="Ingresar Persona" class="btn btn-success d-flex justify-content-center"></input></center>
+                </div>
 
-<p>Click the button below to display the hidden content from the template element.</p>
+            </form>
+        </div>
+        <h2 th:text="${exito}"></h2>
+    </div>
 
-<button>Show hidden content</button>
+
+</div>
+
+<a href="/index" th:href="@{map/index}">Back to home page</a>
 
 
+
+<script th:inline="javascript">
+/*<![CDATA[*/
+var serverContext = [[@{/}]];
+var model_map = [[${model.map}]];
+var centrosVacunacion = [[${centros}]];
+var mymap = L.map('mapid').setView([13.693399179677684,-89.21802884256014], 13);
+new L.tileLayer(
+		'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+			maxZoom : 19
+		}).addTo(mymap);
+mymap.on('zoomend', updateLeafletMap,mymap);
+mymap.on('moveend', updateLeafletMap, mymap);
+
+var listOfMarkers = [{nombre:"San Salvador", x:13.692817323748745, y:-89.21675336657084},
+                       {nombre:"San Marcos", x:13.656751196005517, y:-89.18008194025414},
+                       {nombre:"Mejicanos", x:13.733637168778275, y:-89.21819076573203},
+                       {nombre:"Cuscatancingo", x:13.756025548203818, y:-89.18472805117604},
+                       {nombre:"Ciudad Delgado", x:13.734876346471145, y: -89.1670746308731}];
+
+listOfMarkers.forEach(element => L.marker([element.x,element.y]).addTo(mymap).bindPopup(`<h5>${element.nombre}</h5>`) );
+
+
+function updateLeafletMap(ev){
+	var map = this;
+	var form_data = new FormData();
+	form_data.append([[${_csrf.parameterName}]], [[${_csrf.token}]]);
+	form_data.append('zoom',map.getZoom());
+	form_data.append('baseLayer',model_map.baseLayer);
+	form_data.append('centerX',map.getCenter().lng);
+	form_data.append('centerY',map.getCenter().lat);
+	form_data.append('id',model_map.id);
+
+    $.ajax({
+    	  url: serverContext + 'map/update',
+    	  data: form_data,
+    	  processData: false,
+    	  contentType: false,
+    	  type: 'POST',
+    	  success: function(data){
+    		  console.log(data)
+    	  }
+    	});
+}
+/*]]>*/
+</script>
+
+<script type="text/javascript"
+        src="webjars/tether/1.4.0/dist/js/tether.min.js"
+        th:src="@{/webjars/tether/1.4.0/dist/js/tether.min.js}"></script>
+<!-- /.container -->
+<script type="text/javascript" src="webjars/jquery/3.2.0/jquery.min.js"
+        th:src="@{/webjars/jquery/3.2.0/jquery.min.js}"></script>
+<script type="text/javascript"
+        src="webjars/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
+        th:src="@{/webjars/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js}"></script>
 </body>
 </html>

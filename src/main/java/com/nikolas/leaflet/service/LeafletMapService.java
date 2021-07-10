@@ -7,5 +7,7 @@ import com.nikolas.leaflet.domain.LeafletMap;
 public interface LeafletMapService extends Serializable {
 	LeafletMap leafletMap(Integer id);
 
+
+
 	LeafletMap updateLeafletMap(LeafletMap leafletMap);
 }

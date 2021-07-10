@@ -18,6 +18,8 @@ public class SimpleLeafletMapService implements LeafletMapService {
 		return leafletMapRepository.findOne(id);
 	}
 
+
+
 	@Override
 	public LeafletMap updateLeafletMap(LeafletMap leafletMap) {
 		leafletMap = leafletMapRepository.saveAndFlush(leafletMap);

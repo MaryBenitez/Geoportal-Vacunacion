@@ -44,7 +44,7 @@
 			<span class="navbar-toggler-icon"></span>
 		</button>
 		<div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-			<a class="navbar-brand" href="#">Spring  -Leaflet</a>
+			<a class="navbar-brand" href="/map/index">Geoportal Vacunacion</a>
 			<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
 				<li class="nav-item active"><a class="nav-link" href="#">Centros de Vacunacion
 						<span class="sr-only">(current)</span>
@@ -58,12 +58,30 @@
 	</nav>
 	<div class="container-full" >
 		<div id="mapid"></div>
-		<div id="tableid">
-			<h2>Tabla de centros de vacunaicon</h2>
+		<div class="signup-form container" style = "font-family:courier,arial,helvetica;">
+			<h1 class="display-6 d-flex justify-content-center"> Tabla de Vacunación</h1>
+			<table class="table table-dark table-striped">
+				<thead class="thead-dark">
+				<th>#</th>
+				<th>Nombre</th>
+				<th>Direccion</th>
+				<th>Municipio</th>
+				</thead>
+				<tbody>
+				<th:block th:each="centro, row:${centros}">
+					<tr th:each="v : ${centro}">
+						<td th:text="${v.id}"></td>
+						<td th:text="${v.NombreCentro}"></td>
+						<td th:text="${v.direccionCentro}"></td>
+						<td th:text="${v.municipioCentro}"></td>
+					</tr>
+				</th:block>
+				</tbody>
+			</table>
 		</div>
 	</div>
 
-	<a href="/index" th:href="@{/index}">Back to home page</a>
+	<a href="/index" th:href="@{/map/index}">Back to home page</a>
 
 
 
@@ -71,16 +89,16 @@
 /*<![CDATA[*/
 var serverContext = [[@{/}]];
 var model_map = [[${model.map}]];
-var mymap = L.map('mapid').setView([ model_map.centerY,model_map.centerX], model_map.zoom);
+var centrosVacunacion = [[${centros}]];
+var mymap = L.map('mapid').setView([13.693399179677684,-89.21802884256014], 13);
 new L.tileLayer(
 		'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 			maxZoom : 19
 		}).addTo(mymap);
 mymap.on('zoomend', updateLeafletMap,mymap);
 mymap.on('moveend', updateLeafletMap, mymap);
-var listOfMarkers = [{x:50.5,y:30.5, nombre:"CIFCO"},{x:13.6615370942580,y:-89.18249909335836,nombre:"UCA"}];
 
-listOfMarkers.forEach(element => L.marker([element.x,element.y]).addTo(mymap).bindPopup(`<h2>${element.nombre}</h2>`) );
+centrosVacunacion.forEach(element => L.marker([element.coorX,element.coorY]).addTo(mymap).bindPopup(`<h5>${element.nombreCentro}</h5>`) );
 
 function updateLeafletMap(ev){
 	var map = this;
