@@ -1,22 +1,45 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <title>Login page</title>
-        <meta charset="utf-8" />
-        <link rel="stylesheet" href="/css/main.css" th:href="@{/css/main.css}" />
-	</head>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Inicio de Sesion</title>
+    <link  rel="icon"   href="images/iconN.png" type="image/png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" type="text/css" href="fonts/Linearicons-Free-v1.0.0/icon-font.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/loginStyle.css"/>
+</head>
     <body>
-        <h1>Login page</h1>
-        <p>Example user: user / password</p>
-        <p th:if="${loginError}" class="error">Wrong user or password</p>
-        <form th:action="@{/login}" method="post">
-            <label for="username">Username</label>:
-            <input type="text" id="username" name="username" autofocus="autofocus" /> <br />
-            <label for="password">Password</label>:
-            <input type="password" id="password" name="password" /> <br />
-            <input type="submit" value="Log in" />
-        </form>
-        <p><a href="/index" th:href="@{/index}">Back to home page</a></p>
-        
+
+        <div class="limiter">
+            <div class="container-login100">
+                <div class="wrap-login100">
+                    <form class="login100-form" th:action="@{/login}" method="post">
+                        <br/><br/>
+                        <span class="login100-form-title p-b-34">Iniciar Sesión</span>
+                        <div class="wrap-input100 rs1-wrap-input100 m-b-20">
+                            <input id="username" class="input100" type="text" name="username" placeholder="Usuario"/>
+                            <span class="focus-input100"></span>
+                        </div>
+                        <div class="wrap-input100 rs2-wrap-input100 m-b-20">
+                            <input class="input100" type="password" id="password" name="password" placeholder="Contraseña"/>
+                            <span class="focus-input100"></span>
+                        </div>
+                        <div class="container-login100-form-btn">
+                            <button class="btn login100-form-btn btn-success">Acceder</button>
+                        </div>
+                        <div class="w-full text-center" style="margin-top: 10px;">
+                            <a type="button" class="btn btn-outline-primary col-sm-5" th:href="@{/index}"><i class="fa fa-arrow-circle-left"></i> Volver a pagina principal </a>
+                        </div>
+                    </form>
+                    <div class="login100-more" style="background-image: url('images/mapafondo.png');"></div>
+                </div>
+            </div>
+        </div>
     </body>
 </html>
